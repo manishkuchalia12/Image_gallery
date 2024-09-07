@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .image-container {
+            width: 200px;
+            margin: 10px;
+            position: relative;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+        .filter-options {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .filter-option {
+            margin: 0 10px;
+            padding: 8px 16px;
+            background-color: #eee;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .filter-option.active {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="filter-options">
+        <button class="filter-option active" data-filter="all">All</button>
+        <button class="filter-option" data-filter="nature">Nature</button>
+        <button class="filter-option" data-filter="city">City</button>
+        <button class="filter-option" data-filter="animals">Animals</button>
+    </div>
+
+    <div class="gallery">
+        <div class="image-container" data-category="nature">
+            <img src="nature1.jpg" alt="Nature Image 1">
+        </div>
+        <div class="image-container" data-category="city">
+            <img src="city1.jpg" alt="City Image 1">
+        </div>
+        <div class="image-container" data-category="animals">
+            <img src="animals1.jpg" alt="Animals Image 1">
+        </div>
+        <div class="image-container" data-category="nature">
+            <img src="nature2.jpg" alt="Nature Image 2">
+        </div>
+        <div class="image-container" data-category="city">
+            <img src="city2.jpg" alt="City Image 2">
+        </div>
+        <div class="image-container" data-category="animals">
+            <img src="animals2.jpg" alt="Animals Image 2">
+        </div>
+    </div>
+
+    <script>
+        const filterOptions = document.querySelectorAll('.filter-option');
+        const imageContainers = document.querySelectorAll('.image-container');
+
+        filterOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                // Remove active class from all filter options
+                filterOptions.forEach(opt => opt.classList.remove('active'));
+
+                // Add active class to the clicked option
+                option.classList.add('active');
+
+                // Filter images based on the selected option
+                const filterValue = option.dataset.filter;
+                imageContainers.forEach(container => {
+                    if (filterValue === 'all' || container.dataset.category === filterValue) {
+                        container.style.display = 'block';
+                    } else {
+                        container.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
